@@ -1,0 +1,142 @@
+<body style="margin:0; font-family:'Epilogue', sans-serif; background-color:#FEFFE9;">
+
+  <!-- BARRA (fondo transparente + línea inferior verde) -->
+  <header style="width:100%; background-color:transparent; border-bottom:3px solid #0B5145; display:flex; align-items:center; justify-content:space-between; padding:12px 22px; box-sizing:border-box;">
+
+    <!-- LOGO (izquierda) -->
+    <div style="display:flex; align-items:center;">
+      <img src="img/crezcologo.svg" alt="CREZCO Logo" style="height:42px; display:block;">
+    </div>
+
+    <!-- LINKS (centro / izquierda) -->
+    <nav id="navLinks" style="display:flex; gap:18px; align-items:center;">
+
+      <a id="link-inicio" class="nav-link"
+         href="#"
+         style="text-decoration:none; font-size:15px; color:#838A89; display:flex; align-items:center; gap:8px; padding:6px 10px; border-radius:12px; transition:all 0.18s ease; font-weight:400;"
+         onmouseover="hoverIn(this)"
+         onmouseout="hoverOut(this)"
+         onclick="setActive(this)">
+        <img src="img/inicio.svg" alt="Inicio" style="height:18px; transition:filter 0.18s ease; display:block;">
+        Inicio
+      </a>
+
+      <a id="link-clientes" class="nav-link"
+         href="#"
+         style="text-decoration:none; font-size:15px; color:#838A89; display:flex; align-items:center; gap:8px; padding:6px 10px; border-radius:12px; transition:all 0.18s ease; font-weight:400;"
+         onmouseover="hoverIn(this)"
+         onmouseout="hoverOut(this)"
+         onclick="setActive(this)">
+        <img src="img/clientes.svg" alt="Clientes" style="height:18px; transition:filter 0.18s ease; display:block;">
+        Clientes
+      </a>
+
+      <a id="link-servicios" class="nav-link"
+         href="#"
+         style="text-decoration:none; font-size:15px; color:#838A89; display:flex; align-items:center; gap:8px; padding:6px 10px; border-radius:12px; transition:all 0.18s ease; font-weight:400;"
+         onmouseover="hoverIn(this)"
+         onmouseout="hoverOut(this)"
+         onclick="setActive(this)">
+        <img src="img/servicioslogo.svg" alt="Servicios" style="height:18px; transition:filter 0.18s ease; display:block;">
+        Servicios
+      </a>
+
+      <a id="link-config" class="nav-link"
+         href="#"
+         style="text-decoration:none; font-size:15px; color:#838A89; display:flex; align-items:center; gap:8px; padding:6px 10px; border-radius:12px; transition:all 0.18s ease; font-weight:400;"
+         onmouseover="hoverIn(this)"
+         onmouseout="hoverOut(this)"
+         onclick="setActive(this)">
+        <img src="img/simboloconfiguración.svg" alt="Configuración" style="height:18px; transition:filter 0.18s ease; display:block;">
+        Configuración
+      </a>
+
+    </nav>
+
+    <!-- BOTÓN "ÚNETE" (derecha) -->
+<div style="display:flex; align-items:center;">
+  <a id="btn-comunidad"
+     href="#"
+     style="text-decoration:none; border:2px solid transparent; color:#838A89; background:transparent; padding:8px 14px; border-radius:18px; font-weight:600; transition:all 0.18s ease; display:inline-block;"
+     onmouseover="this.style.backgroundColor='#51C1AE'; this.style.color='#181818';"
+     onmouseout="if(!this.classList.contains('active')){this.style.backgroundColor='transparent'; this.style.color='#838A89'; this.style.border='2px solid transparent';}"
+     onclick="btnCommunityClick(this)">
+    Únete a nuestra comunidad
+  </a>
+</div>
+
+
+  </header>
+
+  
+
+  <!-- Pequeño script para hover / click persistente (TODO en atributos inline + minimal JS) -->
+  <script>
+    function resetLinks() {
+      const links = document.querySelectorAll('.nav-link');
+      links.forEach(l => {
+        l.classList.remove('active');
+        l.style.color = '#838A89';
+        l.style.backgroundColor = 'transparent';
+        const img = l.querySelector('img');
+        if (img) img.style.filter = 'none';
+      });
+    }
+
+    function setActive(el) {
+      // marcar solo este como activo (texto + icono en verde oscuro)
+      resetLinks();
+      el.classList.add('active');
+      el.style.color = '#0B5145';
+      el.style.backgroundColor = 'transparent';
+      const img = el.querySelector('img');
+      if (img) {
+        // filtro para que el ícono se vea verde oscuro (approx)
+        img.style.filter = 'invert(21%) sepia(94%) saturate(523%) hue-rotate(120deg) brightness(60%) contrast(90%)';
+      }
+      // quitar estado activo del botón comunidad si lo tuviera
+      const btn = document.getElementById('btn-comunidad');
+      if (btn) { btn.classList.remove('active'); btn.style.color = '#0B5145'; btn.style.backgroundColor = 'transparent'; btn.style.border = '2px solid #0B5145'; }
+    }
+
+    function hoverIn(el) {
+      if (el.classList.contains('active')) return; // no sobreescribir si ya está activo
+      el.style.color = '#181818';
+      el.style.backgroundColor = '#51C1AE';
+      el.style.borderRadius = '12px';
+      const img = el.querySelector('img');
+      if (img) img.style.filter = 'invert(21%) sepia(94%) saturate(523%) hue-rotate(120deg) brightness(95%) contrast(90%)';
+    }
+
+    function hoverOut(el) {
+      if (el.classList.contains('active')) return;
+      el.style.color = '#838A89';
+      el.style.backgroundColor = 'transparent';
+      const img = el.querySelector('img');
+      if (img) img.style.filter = 'none';
+    }
+
+    function btnCommunityClick(el) {
+      // marcar el botón de comunidad (texto en verde oscuro) y quitar active de links
+      const isActive = el.classList.contains('active');
+      resetLinks();
+      const btns = document.querySelectorAll('#btn-comunidad');
+      btns.forEach(b => {
+        b.classList.remove('active');
+        b.style.color = '#0B5145';
+        b.style.backgroundColor = 'transparent';
+        b.style.border = '2px solid #0B5145';
+      });
+      if (!isActive) {
+        el.classList.add('active');
+        el.style.color = '#0B5145';
+        el.style.backgroundColor = 'transparent';
+        el.style.border = '2px solid #0B5145';
+      }
+    }
+
+    // (opcional) Si quieres que algún link esté activo por defecto, descomenta la línea siguiente:
+    // setActive(document.getElementById('link-inicio'));
+  </script>
+
+</body>
